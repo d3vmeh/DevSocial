@@ -23,4 +23,28 @@ Landing page
 <h1>Welcome to the Homepage, {{username}}</h1>
 
 
+<a href="/createpost">
+    <button class = "btn btn-success">Create A Post</button>
+</a>
+
+<h1>All posts</h1>
+
+
+
+
+{% for post in posts %}
+    
+
+    <div style="margin-bottom: 100px;background-color: lightblue;"><p> Posted by {{post["email"]}} at {{post["time"]}}</p>
+    <p>Post: {{post["post"]}}</p>
+    </div>
+        
+
+
+{% endfor %}
+
+
+
+
+
 {% endblock %}

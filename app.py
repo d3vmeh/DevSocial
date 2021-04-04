@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, flash
 from flask_pymongo import PyMongo
 import os
 from passlib.hash import pbkdf2_sha256 as pbk
-
+from datetime import datetime
 
 
 if os.environ.get("MONGO_URI") == None:
@@ -29,7 +29,18 @@ def landingPage():
 def homepage():
     if "email" in session:
         user = mongo.db.users.find_one({"email":session["email"]})
-        return render_template("home.html",username=user["firstname"])
+
+        allposts = []
+    
+        for i in mongo.db.posts.find():
+            print(i)
+            allposts.append(i)
+        allposts.reverse()
+
+        #print("ehhlo",allposts[0]["email"])
+        return render_template("home.html",username=user["firstname"],posts=allposts)#,postcontent=allposts[0]["post"],posttime=allposts[0]["time"])
+
+
     else:
         return redirect("/login")
 
@@ -84,7 +95,25 @@ def logout():
     return redirect("/login")
 
 
+@app.route("/createpost",methods=["GET","POST"])
+def createpost():
+    if "email" not in session:
+        print("not logged in")
+        return redirect("/login")
+    else:
+        if (request.method == "GET"):
+            return render_template("createpost.html")
+        else:
+            givenpost = request.form["post"]
+            mongo.db.posts.insert_one({"email":session["email"],"post":givenpost,"time":datetime.now().strftime("%H %D")})
+            return redirect("/home")
+
+    
+    return redirect("/login")
+
+
+
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

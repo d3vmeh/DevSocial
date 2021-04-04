@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Login
+{% endblock %}
+{% block main %}
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Create a Post</h1>
+</div>
+
+
+
+<form method = "POST">
+    <textarea type="text" placeholder = "Enter your post here" required = "required" name = "post" class = "form-control" style = "height:250px"></textarea>
+
+
+    <button type="submit" class="btn btn-primary mt-3">Post</button>
+
+
+</form>
+
+
+
+{% endblock %}
