@@ -23,6 +23,21 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def landingPage():
+    #code for adding extra elements by removing accounts
+    # for i in mongo.db.users.find():
+    #     print(i)
+    #     firstname = i["firstname"]
+    #     lastname = i["lastname"]
+    #     email = i["email"]
+    #     password = i["password"]
+    #     date = i["date"]
+    #     friends = [i["email"]]
+    #     i = {"firstname":firstname,"lastname":lastname,"email":email,"password":password,"date":date,"friends":friends}
+        
+    #     mongo.db.users.delete_one({"email":"sumeet.mehra@gmail.com"})
+    #     mongo.db.users.insert_one(i)
+    #     break
+    
     return render_template("index.html")
 
 @app.route("/home")
@@ -38,7 +53,7 @@ def homepage():
             i["color"] = random.choice(colors)
             allposts.append(i)
             
-
+        
         allposts.reverse()
 
         #print("ehhlo",allposts[0]["email"])
@@ -64,7 +79,7 @@ def register():
             flash("Email already in use","error")
             return redirect("/register")
         
-        mongo.db.users.insert_one({"firstname":firstname,"lastname":lastname,"email":email,"password":password,"date":date})
+        mongo.db.users.insert_one({"firstname":firstname,"lastname":lastname,"email":email,"password":password,"date":date,"friends":[email]})
         
         return redirect("/login")
 
