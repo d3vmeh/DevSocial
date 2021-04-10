@@ -33,7 +33,7 @@ def homepage():
         allposts = []
     
         for i in mongo.db.posts.find():
-            print(i)
+            #print(i)
             allposts.append(i)
         allposts.reverse()
 
@@ -61,7 +61,7 @@ def register():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
-    print(session)
+    #print(session)
     if "email" in session:
         return redirect("/home")
     else:
@@ -78,7 +78,7 @@ def login():
                 if pbk.verify(givenpassword,useraccount["password"]):
                     flash("Logged in successfully","success")
                     session["email"] = givenemail
-                    print(session)
+                    #print(session)
                     return redirect("/home")
                 else:
                     flash("Invalid password","error")
@@ -98,14 +98,15 @@ def logout():
 @app.route("/createpost",methods=["GET","POST"])
 def createpost():
     if "email" not in session:
-        print("not logged in")
+        #print("not logged in")
         return redirect("/login")
     else:
         if (request.method == "GET"):
             return render_template("createpost.html")
         else:
             givenpost = request.form["post"]
-            mongo.db.posts.insert_one({"email":session["email"],"post":givenpost,"time":datetime.now().strftime("%H %D")})
+            #print(len(givenpost))
+            mongo.db.posts.insert_one({"email":session["email"],"post":givenpost,"time":datetime.now().strftime("%B %d %Y %I:%M %p")})
             return redirect("/home")
 
     

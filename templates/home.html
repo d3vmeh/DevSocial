@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block title %}
@@ -24,25 +23,29 @@ Landing page
 
 
 <a href="/createpost">
-    <button class = "btn btn-success">Create A Post</button>
+    <button class="btn btn-success">Create A Post</button>
 </a>
 
 <h1>All posts</h1>
 
 
 
-
+<div class = "row">
 {% for post in posts %}
-    
 
-    <div style="margin-bottom: 100px;background-color: lightblue;"><p> Posted by {{post["email"]}} at {{post["time"]}}</p>
-    <p>Post: {{post["post"]}}</p>
+<div class="card text-white bg-info mb-3 col-sm-6 col-lg-4 col-md-3" style="max-width: 18rem;">
+    <div class="card-header">{{post["time"]}}</div>
+    <div class="card-body">
+        <h5 class="card-title">{{post["email"]}}</h5>
+        <p class="card-text">{{post["post"]}}</p>
     </div>
-        
+</div>
+
+
 
 
 {% endfor %}
-
+</div>
 
 
 
