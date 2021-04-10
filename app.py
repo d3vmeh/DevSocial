@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 import os
 from passlib.hash import pbkdf2_sha256 as pbk
 from datetime import datetime
-
+import random
 
 if os.environ.get("MONGO_URI") == None:
     f = open("connectionstring.txt",'r')
@@ -31,10 +31,14 @@ def homepage():
         user = mongo.db.users.find_one({"email":session["email"]})
 
         allposts = []
-    
+        colors = ["success","primary","info","danger","warning"]
+
         for i in mongo.db.posts.find():
             #print(i)
+            i["color"] = random.choice(colors)
             allposts.append(i)
+            
+
         allposts.reverse()
 
         #print("ehhlo",allposts[0]["email"])
@@ -49,11 +53,17 @@ def register():
     if (request.method == "GET"):
         return render_template("register.html")
     else:
+        
         firstname = request.form["firstname"]
         lastname = request.form["lastname"]
         email = request.form["email"]
         password = pbk.hash(request.form["password"])
         date = request.form["date"]
+        useraccount = mongo.db.users.find_one({"email":email})
+        if useraccount is not None:
+            flash("Email already in use","error")
+            return redirect("/register")
+        
         mongo.db.users.insert_one({"firstname":firstname,"lastname":lastname,"email":email,"password":password,"date":date})
         
         return redirect("/login")

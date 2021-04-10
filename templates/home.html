@@ -33,7 +33,7 @@ Landing page
 <div class = "row">
 {% for post in posts %}
 
-<div class="card text-white bg-info mb-3 col-sm-6 col-lg-4 col-md-3" style="max-width: 18rem;">
+<div class="card text-white bg-{{post['color']}} mb-3 col-sm-6 col-lg-4 col-md-3 px-2" style="max-width: 18rem;">
     <div class="card-header">{{post["time"]}}</div>
     <div class="card-body">
         <h5 class="card-title">{{post["email"]}}</h5>

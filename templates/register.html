@@ -37,7 +37,7 @@ Register'
                 <label><b>Password</b></label>
             </td>
             <td>
-                <input type="text" placeholder="Create a password" required="required" name="password"
+                <input type="password" placeholder="Create a password" required="required" name="password"
                     class="form-control">
             </td>
         </tr>
@@ -66,4 +66,23 @@ Register'
         </tr>
     </table>
 </form>
+
+
+
+{% for message in get_flashed_messages() %}
+
+<div class="message" id="message" style="color:green;font-size:30px;height:50px;padding:0px;">
+    {% if "already" in message %}
+    <p style="color:white;background-color:red;">{{message}}</p>
+    {% elif "Success" in message or "success" in message %}
+    <p style="color:green;background-color:#D1FEC5">{{message}}</p>
+    {% else %}
+    <p>error</p>
+    {% endif %}
+
+</div>
+{% endfor %}
+
+
+
 {% endblock %}
