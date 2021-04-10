@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Friends
+{% endblock %}
+{% block main %}
+
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Your Friends</h1>
+</div>
+
+{% for f in friends %}
+<div class="card text-white bg-info" style="max-width: 25rem; margin-top: 10px;">
+    <div class="card-header">
+        <form method="POST">
+
+            <table>
+                <tr>
+                    <input name="friendemail" type="hidden" value="{{f}}">
+                    <td name="friendemail" id="friendemail">{{f}}</td>
+                    <td>
+
+                        <table style="margin-left: 130%;">
+                            <tr>
+                                <td>
+                                    <input type="submit" name="Unfriend" value="Unfriend" class="btn btn-danger">
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+{% endfor %}
+
+{% endblock %}

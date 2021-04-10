@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Friend
+{% endblock %}
+{% block main %}
+
+
+<div class="jumbotron">
+    <h1 class="display-4">Add Friend</h1>
+</div>
+
+<form method="POST">
+    <table>
+        <tr>
+            <td>
+                <input id = "friendemail" type="text" placeholder="Enter user's email" required="required" name="email" class="form-control">
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <input type="submit" value="Send Friend Request" class="btn btn-primary">
+            </td>
+        </tr>
+
+    </table>
+</form>
+{% for message in get_flashed_messages() %}
+
+<div class="message" id="message" style="color:green;font-size:30px;height:50px;padding:0px;">
+    {% if "not" in message or "already" in message %}
+    <p style="color:white;background-color:red;">{{message}}</p>
+    {% elif "Success" in message or "success" in message %}
+    <p style="color:green;background-color:#D1FEC5">{{message}}</p>
+    {% else %}
+    <p>error</p>
+    {% endif %}
+
+</div>
+{% endfor %}
+
+{% endblock %}
